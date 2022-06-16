@@ -1,10 +1,10 @@
 {
-  "name": "react-boilerplate",
+  "name": "mindbox-test",
   "version": "1.0.0",
   "description": "Basic react-app boilerplate with minimum configuration",
   "main": "./src/main.jsx",
   "scripts": {
-    "test": "test -s",
+    "test": "jest",
     "start": "webpack serve",
     "build": "build",
     "lint": "eslint . --ext js,jsx",
@@ -13,6 +13,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JohnZoidy/react-boilerplate.git"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
   },
   "author": "JohnZoidy",
   "license": "ISC",
@@ -31,6 +34,10 @@
     "@babel/eslint-parser": "^7.18.2",
     "@babel/preset-env": "^7.18.2",
     "@babel/preset-react": "^7.17.12",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^14.2.0",
+    "babel-jest": "^28.1.1",
     "babel-loader": "^8.2.5",
     "css-loader": "^6.7.1",
     "eslint": "^8.17.0",
@@ -44,6 +51,7 @@
     "html-webpack-plugin": "^5.5.0",
     "jest": "^28.1.1",
     "jest-cli": "^28.1.1",
+    "jest-environment-jsdom": "^28.1.1",
     "mini-css-extract-plugin": "^2.6.0",
     "sass": "^1.52.3",
     "sass-loader": "^13.0.0",
