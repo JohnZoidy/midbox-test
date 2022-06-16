@@ -7,6 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
 const mode = process.env.NODE_ENV || 'development';
+// const mode = 'production';
 
 module.exports = {
   mode,
