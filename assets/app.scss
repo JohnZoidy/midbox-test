@@ -65,7 +65,7 @@ button {
 
 .completed {
     text-decoration: line-through;
-    color: gray;
+    color:rgb(138, 137, 137);
 }
 
 .card {
@@ -119,6 +119,8 @@ form {
 
 
 .filters {
+    color:rgb(138, 137, 137);
+    font-size: 12px;
     padding: 5px 10px;
     display: flex;
     align-items: baseline;
