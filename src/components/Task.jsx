@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { updateTask } from '../slices/tasksSlice.js';
@@ -10,7 +12,7 @@ const Task = ({ id, name, completed }) => {
 
   return (
     <div className="task">
-      <input type="checkbox" checked={completed} onChange={() => handleChange(id)} />
+      <div className={completed ? 'checkbox checked' : 'checkbox'} onClick={() => handleChange(id)} />
       <p className={completed ? 'completed' : ''}>{name}</p>
     </div>
   );

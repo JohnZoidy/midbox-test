@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import Root from '../src/main.jsx';
 
 test('Work 1', async () => {
-  render(Root());
+  const { container } = render(Root());
   expect(await screen.findByText('todos')).toBeInTheDocument();
   await userEvent.type(screen.getByRole('textbox'), 'test task');
   userEvent.click(screen.getByRole('button', { name: /Add task/i }));
@@ -19,16 +19,16 @@ test('Work 1', async () => {
   await userEvent.type(screen.getByRole('textbox'), 'test task-3');
   userEvent.click(screen.getByRole('button', { name: 'Add task' }));
   expect(await screen.findByText('3 items left')).toBeInTheDocument();
-  expect(await screen.findAllByRole('checkbox')).toHaveLength(3);
+  expect(await container.getElementsByClassName('checkbox')).toHaveLength(3);
 
-  await userEvent.click(screen.getAllByRole('checkbox')[1]);
+  await userEvent.click(container.getElementsByClassName('checkbox')[1]);
   await userEvent.click(screen.getByRole('button', { name: 'Active' }));
-  expect(await screen.getAllByRole('checkbox')).toHaveLength(2);
+  expect(await container.getElementsByClassName('checkbox')).toHaveLength(2);
 
   await userEvent.click(screen.getByRole('button', { name: 'Completed' }));
-  expect(await screen.findAllByRole('checkbox')).toHaveLength(1);
+  expect(await container.getElementsByClassName('checkbox')).toHaveLength(1);
   await userEvent.click(screen.getByRole('button', { name: 'All' }));
   await userEvent.click(screen.getByRole('button', { name: 'Clear completed' }));
-  expect(await screen.findAllByRole('checkbox')).toHaveLength(2);
+  expect(await container.getElementsByClassName('checkbox')).toHaveLength(2);
   expect(await screen.findByText('2 items left')).toBeInTheDocument();
 });

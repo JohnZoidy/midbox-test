@@ -12,9 +12,6 @@ const tasksSlice = createSlice({
     addTask: tasksAdapter.addOne,
     removeTasks: tasksAdapter.removeMany,
     updateTask: tasksAdapter.updateOne,
-    addToStorage(state, action) {
-      localStorage.setItem('taskList', JSON.stringify(action.payload));
-    },
   },
 });
 

@@ -1,58 +1,66 @@
 @import url('https://fonts.googleapis.com/css2?family=Fascinate&family=Fira+Sans:wght@500&display=swap');
 
-body {
-    background: #b5b1b1;
+* {
+    margin: 0;
+    box-sizing: border-box;
 }
 
-p, label, span {
+body {
+    background: #f5f5f5;
     font-family: 'Fira Sans', sans-serif;
     font-size: 14px;
-    color:rgb(138, 137, 137);
-    margin: 0;
+    color:#3a3a3a;
 }
 
 h1 {
-    margin: 0;
+    text-align: center;
     font-family: 'Fascinate', cursive;
     font-size: 100px;
     color: #e7d6d5;
 }
 
 h2 {
-    color:rgb(138, 137, 137);
-    padding: 14px 0px;
-    margin: 0;
-    border-bottom: 2px solid rgb(198, 198, 198);
-}
-
-label {
-    display: block;
-    padding: 5px;
+    font-style: italic;
+    color:#e6e6e6;
+    transition: all 0.5s;
+    padding-left: 20px;
 }
 
 label > input {
     width: 70%;
+    display: block;
     height: 30px;
-    margin-top: 5px;
+    margin: 5px 0;
     border-radius: 5px;
-    border: 1px solid rgb(163, 126, 2);
-    background: #e2e2e2;
+    border: 1px solid #e7d6d5;
 }
 
 button {
-    border: 1px solid rgb(163, 126, 2);
+    border: 1px outset rgba(0,0,0,0);
     color:rgb(138, 137, 137);
     border-radius: 5px;
-    margin-right: 5px;
     padding: 5px 10px;
+    margin-right: 2px;
     background: none;
+    cursor: pointer;
+}
+
+.btn:hover, .btn-active {
+    border: 1px solid #e7d6d5;
+}
+
+.dropdown {
+    font-size: 30px;
+    color:#e6e6e6;
+    width: 30px;
+    height: 30px;
+    line-height: 28px;
+    text-align: center;
     transition: all 0.5s;
 }
 
-button:hover, .btn-active {
+.dropdown:hover {
     cursor: pointer;
-    background: rgb(163, 126, 2);
-    color: white;
 }
 
 .completed {
@@ -60,55 +68,68 @@ button:hover, .btn-active {
     color: gray;
 }
 
-.plate {
+.card {
+    background: #fefefe;
+    border: 1px solid rgb(206, 206, 206);
+    width: 40%;
     margin: auto;
-    width: 50%;
-    text-align: center;
+    box-shadow: 2px 3px 4px rgb(113, 113, 113);
 }
 
-.card {
-    background: #f4f4f4;
-    border: 1px solid rgb(206, 206, 206);
-    width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 100px;
-    box-shadow: 2px 2px 5px rgb(113, 113, 113);
+.tasklist {
+    max-height: 500px;
+    transition: max-height 0.4s ease-in;
 }
 
 .task {
+    p {
+        overflow-wrap: break-word;
+        word-break: break-word;
+        padding-left: 20px;
+        text-align: left;
+    }
+    .checkbox {
+         &.checked::before {
+            content: "✓";
+            color: green;
+            font-size: 40px;      
+            position: absolute;
+            left: 4px;
+            top: -20px;
+        }
+        border: 1px solid rgb(198, 198, 198);
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        position: relative;
+    }
     display: flex;
-    justify-content: left;
+    position: relative;
     align-items: center;
     border-bottom: 1px solid rgb(198, 198, 198);
     padding: 10px;
+    transition: all 0.5s ease;
 }
 
-.task p {
-    overflow-wrap: break-word;
-    word-break: break-word;
-    margin-right: 31px;
-    text-align: left;
+form {
+    padding: 10px;
+    border-bottom: 1px solid rgb(198, 198, 198);
 }
 
-.task input {
-    margin: 0px 15px;
-    width: 30px;
-    height: 30px;
-}
 
-.foot {
-    margin: 10px;
-    align-items: end;
+.filters {
+    padding: 5px 10px;
     display: flex;
+    align-items: baseline;
     justify-content: space-between;
-
-}
-.addtask {
-    text-align: left;
 }
 
-.clear {
-    margin-top: 5px;
-    text-align: right;
+.hide {
+    max-height: 0;
+    transition: max-height 0.3s ease-out;
+    overflow: hidden;
+    .task {
+        opacity: 0;
+    }
 }
