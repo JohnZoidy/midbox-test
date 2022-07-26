@@ -2,7 +2,7 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Root from '../src/main.jsx';
+import Root from '../src/main';
 
 test('Work 1', async () => {
   const { container } = render(Root());

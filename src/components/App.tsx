@@ -1,14 +1,22 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { useState, useEffect, useRef } from 'react';
-import { uniqueId } from 'lodash';
+import React, { useState, useEffect, useRef, FormEvent } from 'react';
+import uniqueId from 'lodash.uniqueid';
 import { useSelector, useDispatch } from 'react-redux';
-import { taskSelectors, addTask, removeTasks } from '../slices/tasksSlice.js';
-import Task from './Task.jsx';
+import { taskSelectors, addTask, removeTasks } from '../slices/tasksSlice';
+import Task from './Task';
+import { TaskType } from '../@types/task.d';
 
-const App = () => {
+enum Sort {
+  ALL = 'all',
+  ACTIVE = 'active',
+  COMPLETED = 'completed',
+}
+
+const App: React.FC = () => {
   const dispatch = useDispatch();
-  const dropdown = useRef();
+  const dropdown = useRef<HTMLDivElement>(null);
+  const input = useRef<HTMLInputElement>(null);
   const taskList = useSelector(taskSelectors.selectAll);
   const tasks = {
     all: taskList,
@@ -17,32 +25,29 @@ const App = () => {
   };
   const [taskName, setText] = useState('');
   const [isActive, setIsActive] = useState(false);
-  const [sort, setSort] = useState('all');
+  const [sort, setSort] = useState<Sort>(Sort.ALL);
 
-  const addTaskHandler = (e) => {
+  const addTaskHandler = (e: FormEvent) => {
     e.preventDefault();
     dispatch(
       addTask({ id: uniqueId('tk_'), name: taskName, completed: false }),
     );
     setText('');
+    input.current?.focus();
   };
 
   const dropdownHandler = () => {
     setIsActive(!isActive);
-    if (!isActive) {
+    if (!isActive && dropdown.current) {
       dropdown.current.style.transform = 'rotate(90deg)';
     }
-    if (isActive) {
+    if (isActive && dropdown.current) {
       dropdown.current.style.transform = 'rotate(0deg)';
     }
   };
 
   useEffect(() => {
-    const tasksInStorage = JSON.parse(localStorage.getItem('taskList'));
-    window.addEventListener(
-      'beforeunload',
-      localStorage.setItem('taskList', JSON.stringify(taskList)),
-    );
+    const tasksInStorage: Array<TaskType> = JSON.parse(localStorage.getItem('taskList') || '[]');
     if (tasksInStorage) {
       tasksInStorage.map((t) => dispatch(
         addTask({ id: uniqueId('tk_'), name: t.name, completed: t.completed }),
@@ -62,7 +67,6 @@ const App = () => {
           <div
             ref={dropdown}
             onClick={dropdownHandler}
-            type="button"
             className="dropdown"
           >
             &#10095;
@@ -76,15 +80,15 @@ const App = () => {
               id={id}
               name={name}
               completed={completed}
-              sort={sort}
             />
           ))}
         </div>
         <div className="foot">
-          <form onSubmit={(e) => addTaskHandler(e)}>
+          <form onSubmit={(e: FormEvent) => addTaskHandler(e)}>
             <label htmlFor="textField">
               You can add a task below:
               <input
+                ref={input}
                 name="textField"
                 type="text"
                 required
@@ -101,21 +105,21 @@ const App = () => {
               <button
                 className={sort === 'all' ? 'btn-active' : 'btn'}
                 type="button"
-                onClick={() => setSort('all')}
+                onClick={() => setSort(Sort.ALL)}
               >
                 All
               </button>
               <button
                 className={sort === 'active' ? 'btn-active' : 'btn'}
                 type="button"
-                onClick={() => setSort('active')}
+                onClick={() => setSort(Sort.ACTIVE)}
               >
                 Active
               </button>
               <button
                 className={sort === 'completed' ? 'btn-active' : 'btn'}
                 type="button"
-                onClick={() => setSort('completed')}
+                onClick={() => setSort(Sort.COMPLETED)}
               >
                 Completed
               </button>

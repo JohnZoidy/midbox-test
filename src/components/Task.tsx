@@ -2,11 +2,12 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { updateTask } from '../slices/tasksSlice.js';
+import { updateTask } from '../slices/tasksSlice';
+import { TaskType } from '../@types/task.d';
 
-const Task = ({ id, name, completed }) => {
+const Task: React.FC<TaskType> = ({ id, name, completed }) => {
   const dispatch = useDispatch();
-  const handleChange = (taskId) => {
+  const handleChange = (taskId: string) => {
     dispatch(updateTask({ id: taskId, changes: { completed: !completed } }));
   };
 
